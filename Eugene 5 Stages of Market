@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Sophistication Framework - Interactive Workbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700;900&family=Work+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #faf9f6;
+            --bg-secondary: #f4f1ea;
+            --bg-card: #ffffff;
+            --accent-primary: #2d5a3d;
+            --accent-secondary: #8b4513;
+            --accent-tertiary: #c89b3f;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-muted: #888888;
+            --border: #e0ddd3;
+            --shadow: rgba(45, 90, 61, 0.08);
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            padding: 60px 0;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: var(--accent-primary);
+        }
+
+        .header-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-secondary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .intro-section {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+
+        .intro-section h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 20px;
+        }
+
+        .intro-section p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .intro-section blockquote {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-tertiary);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .workflow-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            padding: 30px;
+            background: var(--accent-primary);
+            border-radius: 12px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workflow-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .workflow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .workflow-step-num {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .workflow-step-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .stage-section {
+            margin-bottom: 80px;
+        }
+
+        .stage-header {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 30px;
+            align-items: start;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--border);
+        }
+
+        .stage-badge {
+            background: var(--accent-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .stage-badge-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .stage-badge-num {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .stage-content h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--accent-primary);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .stage-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-secondary);
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+            border-color: var(--accent-primary);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .info-card-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .info-card-content {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .info-card-content ul {
+            margin-top: 12px;
+            padding-left: 20px;
+        }
+
+        .info-card-content li {
+            margin-bottom: 8px;
+        }
+
+        .example-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-tertiary);
+            padding: 25px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+        }
+
+        .example-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-secondary);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .example-text {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .example-explanation {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        .worksheet {
+            background: white;
+            border: 2px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .worksheet-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .worksheet-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .worksheet-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .worksheet-section {
+            margin-bottom: 30px;
+        }
+
+        .worksheet-label {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .worksheet-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: all 0.2s ease;
+        }
+
+        .worksheet-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(45, 90, 61, 0.1);
+        }
+
+        .worksheet-hint {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .decision-tree {
+            background: var(--bg-card);
+            border: 2px solid var(--accent-primary);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 60px 0;
+        }
+
+        .decision-tree h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .decision-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .decision-option:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(8px);
+        }
+
+        .decision-option-title {
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+        }
+
+        .decision-option-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .floating-progress {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border: 2px solid var(--accent-primary);
+            border-radius: 50px;
+            padding: 16px 28px;
+            box-shadow: 0 8px 32px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .progress-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .progress-value {
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+        }
+
+        .save-btn {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+
+        .save-btn:hover {
+            background: var(--accent-secondary);
+            transform: scale(1.05);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .stage-header {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .workflow-step:not(:last-child)::after {
+                content: '↓';
+                right: auto;
+                left: 50%;
+                top: auto;
+                bottom: -30px;
+                transform: translateX(-50%);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-progress {
+                bottom: 15px;
+                right: 15px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-label">Eugene Schwartz Framework</div>
+            <h1>Market Sophistication</h1>
+            <p class="subtitle">"How many similar products have prospects been told about before?"</p>
+        </header>
+
+        <div class="intro-section">
+            <h2>Understanding Market Sophistication</h2>
+            <p>Market Sophistication is the third critical variable every copywriter must analyze before writing a headline. Eugene Schwartz teaches us that no market stands still—it evolves through predictable stages as prospects are exposed to more and more similar claims.</p>
+            <blockquote>
+                "How many similar products have [prospects] been told about before?"<br>
+                <strong>— Eugene Schwartz</strong>
+            </blockquote>
+        </div>
+
+        <div class="workflow-bar">
+            <div class="workflow-step">
+                <div class="workflow-step-num">STEP 1</div>
+                <div class="workflow-step-name">Analyze Market</div>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-step-num">STEP 2</div>
+                <div class="workflow-step-name">Identify Stage</div>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-step-num">STEP 3</div>
+                <div class="workflow-step-name">Choose Strategy</div>
+            </div>
+            <div class="workflow-step">
+                <div class="workflow-step-num">STEP 4</div>
+                <div class="workflow-step-name">Write Headline</div>
+            </div>
+        </div>
+
+        <!-- STAGE 1 -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <div class="stage-badge">
+                    <div class="stage-badge-label">Stage</div>
+                    <div class="stage-badge-num">01</div>
+                </div>
+                <div class="stage-content">
+                    <h2>First in Your Market</h2>
+                    <p class="stage-subtitle">The Dream Scenario: Virgin Territory</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">🎯</div>
+                        <h3 class="info-card-title">The Strategy</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <strong>Be simple and direct. Do not be "fancy".</strong>
+                        <p style="margin-top: 12px;">The prospect has no prior information about similar products. A raw promise is enough to capture their attention because the market is completely unsophisticated.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">📝</div>
+                        <h3 class="info-card-title">When to Use</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>You're launching a truly new product category</li>
+                            <li>Your audience has never heard of this solution</li>
+                            <li>No competitors have made similar claims</li>
+                            <li>The market is "virgin" and unsophisticated</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">How to Execute</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>State the need or claim directly</li>
+                            <li>Use simple, clear language</li>
+                            <li>Don't overcomplicate the message</li>
+                            <li>Focus on the core benefit only</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-label">Classic Example Headline</div>
+                <div class="example-text">"NOW! LOSE UGLY FAT!"</div>
+                <div class="example-explanation">Simple, direct, and powerful because the market had never heard this promise before.</div>
+            </div>
+
+            <div class="worksheet">
+                <div class="worksheet-header">
+                    <div class="worksheet-icon">✍️</div>
+                    <h3 class="worksheet-title">Your Stage 1 Headline</h3>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(event, 'stage1-analysis')">Market Analysis</button>
+                    <button class="tab" onclick="switchTab(event, 'stage1-headline')">Your Headline</button>
+                </div>
+
+                <div id="stage1-analysis" class="tab-content active">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Is your market truly unsophisticated?</label>
+                        <textarea class="worksheet-input" placeholder="Analyze: Has your target audience been exposed to similar products or claims? Are you truly first?"></textarea>
+                        <div class="worksheet-hint">Be honest—most markets aren't truly at Stage 1</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What is the core need/claim?</label>
+                        <textarea class="worksheet-input" placeholder="State the primary benefit in its simplest form..."></textarea>
+                    </div>
+                </div>
+
+                <div id="stage1-headline" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Your Stage 1 Headline</label>
+                        <textarea class="worksheet-input" placeholder="Write your simple, direct headline here..."></textarea>
+                        <div class="worksheet-hint">Remember: Simple and direct. State the need or claim clearly.</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Why this works for Stage 1</label>
+                        <textarea class="worksheet-input" placeholder="Explain why this headline is appropriate for an unsophisticated market..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <div class="stage-badge">
+                    <div class="stage-badge-label">Stage</div>
+                    <div class="stage-badge-num">02</div>
+                </div>
+                <div class="stage-content">
+                    <h2>The Enlarged Claim</h2>
+                    <p class="stage-subtitle">Outbid Your Competition with Bigger Promises</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">🎯</div>
+                        <h3 class="info-card-title">The Strategy</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <strong>Copy the successful claim but enlarge upon it.</strong>
+                        <p style="margin-top: 12px;">Once competitors enter, the original direct claim still works, but mere repetition isn't enough. Drive the claim to the absolute limit of believability to outbid your competition.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">📝</div>
+                        <h3 class="info-card-title">When to Use</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Competitors have copied the original claim</li>
+                            <li>The basic promise is familiar to prospects</li>
+                            <li>Market still believes in the core benefit</li>
+                            <li>You need to differentiate through magnitude</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">How to Execute</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Add specific numbers and timeframes</li>
+                            <li>Make the result bigger or faster</li>
+                            <li>Include guarantees or risk reversals</li>
+                            <li>Push to believability's edge (but don't cross it)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-label">Classic Example Headline</div>
+                <div class="example-text">"LOSE UP TO 47 POUNDS IN 4 WEEKS—OR RECEIVE $40 BACK!"</div>
+                <div class="example-explanation">Takes the weight loss claim and enlarges it with specific numbers, timeframe, and a money-back guarantee.</div>
+            </div>
+
+            <div class="worksheet">
+                <div class="worksheet-header">
+                    <div class="worksheet-icon">✍️</div>
+                    <h3 class="worksheet-title">Your Stage 2 Headline</h3>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(event, 'stage2-analysis')">Market Analysis</button>
+                    <button class="tab" onclick="switchTab(event, 'stage2-headline')">Your Headline</button>
+                </div>
+
+                <div id="stage2-analysis" class="tab-content active">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What is the competing claim?</label>
+                        <textarea class="worksheet-input" placeholder="Identify what your competitors are promising..."></textarea>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">How can you enlarge it?</label>
+                        <textarea class="worksheet-input" placeholder="Think: more, faster, easier, guaranteed... What's the believable limit?"></textarea>
+                    </div>
+                </div>
+
+                <div id="stage2-headline" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Your Stage 2 Headline</label>
+                        <textarea class="worksheet-input" placeholder="Write your enlarged claim headline here..."></textarea>
+                        <div class="worksheet-hint">Include specific numbers, timeframes, or guarantees</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Why this outbids competitors</label>
+                        <textarea class="worksheet-input" placeholder="Explain how your claim is bigger/better while remaining believable..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <div class="stage-badge" style="background: var(--accent-secondary);">
+                    <div class="stage-badge-label">Stage</div>
+                    <div class="stage-badge-num">03</div>
+                </div>
+                <div class="stage-content">
+                    <h2>The New Mechanism</h2>
+                    <p class="stage-subtitle">The Most Important Stage for Modern Advertisers</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">🎯</div>
+                        <h3 class="info-card-title">The Strategy</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <strong>Shift emphasis from WHAT to HOW.</strong>
+                        <p style="margin-top: 12px;">The market becomes glutted and skeptical. Claims are automatically discounted. You must introduce a NEW MECHANISM to make the old promise fresh and believable again.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">📝</div>
+                        <h3 class="info-card-title">When to Use</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Market is saturated with claims</li>
+                            <li>Prospects are skeptical of promises</li>
+                            <li>Claims are automatically discounted</li>
+                            <li>You need to revive interest in the benefit</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">How to Execute</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Feature the mechanism, not just the result</li>
+                            <li>Explain HOW the product works</li>
+                            <li>Introduce a unique process or ingredient</li>
+                            <li>Make the mechanism the star of the headline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-label">Classic Example Headlines</div>
+                <div class="example-text">"FLOATS FAT RIGHT OUT OF YOUR BODY!"</div>
+                <div class="example-text" style="font-size: 1.5rem; margin-top: 12px;">"FIRST WONDER DRUG FOR REDUCING!"</div>
+                <div class="example-explanation">The mechanism (floating fat, wonder drug) takes center stage. The claim is subordinated.</div>
+            </div>
+
+            <div class="worksheet">
+                <div class="worksheet-header">
+                    <div class="worksheet-icon">✍️</div>
+                    <h3 class="worksheet-title">Your Stage 3 Headline</h3>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(event, 'stage3-analysis')">Market Analysis</button>
+                    <button class="tab" onclick="switchTab(event, 'stage3-mechanism')">Mechanism</button>
+                    <button class="tab" onclick="switchTab(event, 'stage3-headline')">Your Headline</button>
+                </div>
+
+                <div id="stage3-analysis" class="tab-content active">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Why are prospects skeptical?</label>
+                        <textarea class="worksheet-input" placeholder="Analyze: What claims have they heard? Why don't they believe anymore?"></textarea>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What's the old promise?</label>
+                        <textarea class="worksheet-input" placeholder="State the benefit that prospects no longer believe..."></textarea>
+                    </div>
+                </div>
+
+                <div id="stage3-mechanism" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What is your unique mechanism?</label>
+                        <textarea class="worksheet-input" placeholder="Describe HOW your product works differently. What's the unique ingredient, process, or method?"></textarea>
+                        <div class="worksheet-hint">This is the breakthrough that makes the old promise believable again</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Why is this mechanism new/different?</label>
+                        <textarea class="worksheet-input" placeholder="Explain what makes this mechanism fresh and credible..."></textarea>
+                    </div>
+                </div>
+
+                <div id="stage3-headline" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Your Stage 3 Headline</label>
+                        <textarea class="worksheet-input" placeholder="Write a headline that features the mechanism..."></textarea>
+                        <div class="worksheet-hint">The mechanism should be the star; the claim is subordinated</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">How does this revive belief?</label>
+                        <textarea class="worksheet-input" placeholder="Explain how the mechanism makes the old promise fresh again..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 4 -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <div class="stage-badge">
+                    <div class="stage-badge-label">Stage</div>
+                    <div class="stage-badge-num">04</div>
+                </div>
+                <div class="stage-content">
+                    <h2>Embellishing the Mechanism</h2>
+                    <p class="stage-subtitle">Making It Quicker, Easier, or Surer</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">🎯</div>
+                        <h3 class="info-card-title">The Strategy</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <strong>Elaborate or enlarge upon the successful mechanism.</strong>
+                        <p style="margin-top: 12px;">Just as in Stage 2, competitors adopt your mechanism, leading to a new cycle of elaboration. Make the mechanism seem quicker, easier, or more certain.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">📝</div>
+                        <h3 class="info-card-title">When to Use</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Competitors have copied your mechanism</li>
+                            <li>The mechanism is now familiar to prospects</li>
+                            <li>Market still believes in the process</li>
+                            <li>You need to enhance the mechanism's appeal</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">How to Execute</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Add qualifiers to the mechanism</li>
+                            <li>Make it easier or faster</li>
+                            <li>Remove limitations or barriers</li>
+                            <li>Enhance with "first," "only," or "new"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-label">Classic Example Headline</div>
+                <div class="example-text">"FIRST NO-DIET REDUCING WONDER DRUG!"</div>
+                <div class="example-explanation">Takes the "wonder drug" mechanism and embellishes it by removing the limitation (dieting).</div>
+            </div>
+
+            <div class="worksheet">
+                <div class="worksheet-header">
+                    <div class="worksheet-icon">✍️</div>
+                    <h3 class="worksheet-title">Your Stage 4 Headline</h3>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(event, 'stage4-analysis')">Market Analysis</button>
+                    <button class="tab" onclick="switchTab(event, 'stage4-headline')">Your Headline</button>
+                </div>
+
+                <div id="stage4-analysis" class="tab-content active">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What is the established mechanism?</label>
+                        <textarea class="worksheet-input" placeholder="Identify the mechanism that competitors are now using..."></textarea>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">How can you embellish it?</label>
+                        <textarea class="worksheet-input" placeholder="Think: faster, easier, no diet, no exercise, while you sleep... What limitation can you remove?"></textarea>
+                    </div>
+                </div>
+
+                <div id="stage4-headline" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Your Stage 4 Headline</label>
+                        <textarea class="worksheet-input" placeholder="Write your embellished mechanism headline here..."></textarea>
+                        <div class="worksheet-hint">Enhance the mechanism by removing barriers or adding qualifiers</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What makes this version better?</label>
+                        <textarea class="worksheet-input" placeholder="Explain how your embellishment improves upon the basic mechanism..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE 5 -->
+        <div class="stage-section">
+            <div class="stage-header">
+                <div class="stage-badge" style="background: var(--accent-tertiary);">
+                    <div class="stage-badge-label">Stage</div>
+                    <div class="stage-badge-num">05</div>
+                </div>
+                <div class="stage-content">
+                    <h2>The Exhausted Market</h2>
+                    <p class="stage-subtitle">Identification Over Product Performance</p>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">🎯</div>
+                        <h3 class="info-card-title">The Strategy</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <strong>Shift away from product to prospect identification.</strong>
+                        <p style="margin-top: 12px;">The market no longer believes in promises or mechanisms. You must bring the prospect into the ad by reflecting their personality, problems, or desires.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">📝</div>
+                        <h3 class="info-card-title">When to Use</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Market is completely saturated</li>
+                            <li>Prospects believe nothing you say</li>
+                            <li>Field is considered "exhausted"</li>
+                            <li>Product attributes no longer matter</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">⚡</div>
+                        <h3 class="info-card-title">How to Execute</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <ul>
+                            <li>Focus on the prospect's identity</li>
+                            <li>Address their emotional state</li>
+                            <li>Reflect their aspirations or fears</li>
+                            <li>Use lifestyle or status positioning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-label">Classic Example Headlines</div>
+                <div class="example-text">"WHY MEN CRACK..."</div>
+                <div class="example-text" style="font-size: 1.5rem; margin-top: 12px;">Marlboro: Virile Men Visual Ads</div>
+                <div class="example-explanation">Addresses a human condition or identity rather than product attributes. Revives "dead" products through identification.</div>
+            </div>
+
+            <div class="worksheet">
+                <div class="worksheet-header">
+                    <div class="worksheet-icon">✍️</div>
+                    <h3 class="worksheet-title">Your Stage 5 Headline</h3>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab(event, 'stage5-analysis')">Market Analysis</button>
+                    <button class="tab" onclick="switchTab(event, 'stage5-identity')">Identity</button>
+                    <button class="tab" onclick="switchTab(event, 'stage5-headline')">Your Headline</button>
+                </div>
+
+                <div id="stage5-analysis" class="tab-content active">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Why is the market exhausted?</label>
+                        <textarea class="worksheet-input" placeholder="Analyze: What have prospects heard? Why don't they believe anything anymore?"></textarea>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What needs to change?</label>
+                        <textarea class="worksheet-input" placeholder="Recognize that product claims won't work anymore..."></textarea>
+                    </div>
+                </div>
+
+                <div id="stage5-identity" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Who is your prospect?</label>
+                        <textarea class="worksheet-input" placeholder="Describe their personality, desires, fears, aspirations, identity..."></textarea>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">What do they identify with?</label>
+                        <textarea class="worksheet-input" placeholder="What lifestyle, status, or emotional state resonates with them?"></textarea>
+                    </div>
+                </div>
+
+                <div id="stage5-headline" class="tab-content">
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">Your Stage 5 Headline</label>
+                        <textarea class="worksheet-input" placeholder="Write a headline that reflects your prospect's identity..."></textarea>
+                        <div class="worksheet-hint">Focus on the person, not the product</div>
+                    </div>
+
+                    <div class="worksheet-section">
+                        <label class="worksheet-label">How does this create identification?</label>
+                        <textarea class="worksheet-input" placeholder="Explain how your prospect sees themselves in this headline..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DECISION TREE -->
+        <div class="decision-tree">
+            <h3>🧭 Quick Stage Identifier</h3>
+            <div class="decision-option" onclick="highlightStage(1)">
+                <div class="decision-option-title">→ No one has made this claim before in my market</div>
+                <div class="decision-option-desc">Use Stage 1: Simple, direct claim</div>
+            </div>
+            <div class="decision-option" onclick="highlightStage(2)">
+                <div class="decision-option-title">→ Competitors have made the same claim</div>
+                <div class="decision-option-desc">Use Stage 2: Enlarge the claim with numbers/guarantees</div>
+            </div>
+            <div class="decision-option" onclick="highlightStage(3)">
+                <div class="decision-option-title">→ Prospects are skeptical of all claims in this category</div>
+                <div class="decision-option-desc">Use Stage 3: Introduce a new mechanism</div>
+            </div>
+            <div class="decision-option" onclick="highlightStage(4)">
+                <div class="decision-option-title">→ Competitors have copied my mechanism</div>
+                <div class="decision-option-desc">Use Stage 4: Embellish the mechanism</div>
+            </div>
+            <div class="decision-option" onclick="highlightStage(5)">
+                <div class="decision-option-title">→ Market believes nothing; field seems dead</div>
+                <div class="decision-option-desc">Use Stage 5: Focus on identification</div>
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="intro-section" style="margin-top: 80px;">
+            <h2>The Market Life Cycle</h2>
+            <p>The most profound point Schwartz makes is that <strong>no market stands still</strong>. An industry, like the Cigarette Industry, will move from simple enjoyment (Stage 1: "They Satisfy!") to mechanisms (Stage 3: "Luckies—They're Toasted!") and finally to pure visual identification (Stage 5: The Marlboro "Virile Men" ads).</p>
+            <p style="margin-top: 20px;"><strong>If your advertising runs into a "wall of disinterest," it is likely because you are using a strategy that does not match the current level of your market's sophistication.</strong></p>
+        </div>
+    </div>
+
+    <div class="floating-progress">
+        <div>
+            <span class="progress-label">Stages Analyzed</span>
+            <span class="progress-value" id="stagesCompleted">0/5</span>
+        </div>
+        <button class="save-btn" onclick="exportWork()">Export Work</button>
+    </div>
+
+    <script>
+        // Tab switching
+        function switchTab(event, tabId) {
+            const parent = event.target.closest('.worksheet');
+            const tabs = parent.querySelectorAll('.tab');
+            const contents = parent.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            parent.querySelector(`#${tabId}`).classList.add('active');
+        }
+
+        // Track progress
+        const textareas = document.querySelectorAll('.worksheet-input');
+        
+        function updateProgress() {
+            const stages = [1, 2, 3, 4, 5];
+            let completed = 0;
+            
+            stages.forEach(stage => {
+                const stageInputs = document.querySelectorAll(`#stage${stage}-headline .worksheet-input`);
+                const hasContent = Array.from(stageInputs).some(input => input.value.trim().length > 0);
+                if (hasContent) completed++;
+            });
+            
+            document.getElementById('stagesCompleted').textContent = `${completed}/5`;
+            
+            // Save to localStorage
+            saveWork();
+        }
+
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', updateProgress);
+        });
+
+        // Save work
+        function saveWork() {
+            const data = {};
+            textareas.forEach((textarea, index) => {
+                data[`input_${index}`] = textarea.value;
+            });
+            localStorage.setItem('marketSophistication', JSON.stringify(data));
+        }
+
+        // Load saved work
+        function loadWork() {
+            const saved = localStorage.getItem('marketSophistication');
+            if (saved) {
+                const data = JSON.parse(saved);
+                textareas.forEach((textarea, index) => {
+                    if (data[`input_${index}`]) {
+                        textarea.value = data[`input_${index}`];
+                    }
+                });
+                updateProgress();
+            }
+        }
+
+        // Export functionality
+        function exportWork() {
+            let exportText = '# MARKET SOPHISTICATION ANALYSIS\n\n';
+            exportText += 'Eugene Schwartz Framework - Your Complete Analysis\n\n';
+            exportText += '═══════════════════════════════════════════════\n\n';
+
+            const stages = [
+                { num: 1, name: 'First in Your Market' },
+                { num: 2, name: 'The Enlarged Claim' },
+                { num: 3, name: 'The New Mechanism' },
+                { num: 4, name: 'Embellishing the Mechanism' },
+                { num: 5, name: 'The Exhausted Market' }
+            ];
+
+            stages.forEach(stage => {
+                exportText += `## STAGE ${stage.num}: ${stage.name}\n\n`;
+                
+                const inputs = document.querySelectorAll(`[id^="stage${stage.num}"] .worksheet-input`);
+                inputs.forEach((input, idx) => {
+                    const label = input.previousElementSibling?.textContent || `Field ${idx + 1}`;
+                    if (input.value.trim()) {
+                        exportText += `**${label}**\n${input.value.trim()}\n\n`;
+                    }
+                });
+                
+                exportText += '───────────────────────────────────────────────\n\n';
+            });
+
+            // Create download
+            const blob = new Blob([exportText], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'market-sophistication-analysis.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Highlight stage
+        function highlightStage(num) {
+            const sections = document.querySelectorAll('.stage-section');
+            sections.forEach((section, index) => {
+                if (index + 1 === num) {
+                    section.style.background = 'rgba(45, 90, 61, 0.05)';
+                    section.style.borderRadius = '12px';
+                    section.style.padding = '40px';
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    setTimeout(() => {
+                        section.style.background = 'transparent';
+                        section.style.padding = '0';
+                    }, 3000);
+                }
+            });
+        }
+
+        // Load on page load
+        window.addEventListener('load', loadWork);
+    </script>
+</body>
+</html>
