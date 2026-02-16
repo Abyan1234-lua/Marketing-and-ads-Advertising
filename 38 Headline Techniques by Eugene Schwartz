@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>38 Headline Strengthening Techniques - Interactive Workbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #141414;
+            --bg-hover: #1f1f1f;
+            --accent-gold: #d4af37;
+            --accent-amber: #ff9500;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --border: #2a2a2a;
+            --gradient-1: linear-gradient(135deg, #d4af37 0%, #ff9500 100%);
+            --gradient-2: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 149, 0, 0.05) 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.7s forwards;
+        }
+
+        .intro-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.9s forwards;
+        }
+
+        .intro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-1);
+        }
+
+        .intro-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+        }
+
+        .intro-card p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .category-section {
+            margin-bottom: 80px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .category-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 600;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            min-width: 80px;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .technique-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .technique-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
+        }
+
+        .technique-card:hover::before {
+            opacity: 1;
+        }
+
+        .technique-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .technique-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            min-width: 45px;
+        }
+
+        .technique-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .technique-description {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .technique-example {
+            background: var(--bg-secondary);
+            border-left: 3px solid var(--accent-amber);
+            padding: 14px 18px;
+            border-radius: 6px;
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .technique-example strong {
+            color: var(--accent-amber);
+            font-style: normal;
+        }
+
+        .worksheet-area {
+            position: relative;
+            z-index: 1;
+        }
+
+        .worksheet-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-field {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--bg-secondary);
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .floating-toolbar {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 12px 24px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            z-index: 99;
+        }
+
+        .toolbar-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .toolbar-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .divider {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        .export-btn {
+            background: var(--gradient-1);
+            color: var(--bg-primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .export-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .techniques-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-toolbar {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 16px;
+                gap: 12px;
+            }
+
+            .toolbar-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    
+    <div class="container">
+        <header>
+            <h1>38 Headline Techniques</h1>
+            <p class="subtitle">The Eugene Schwartz Verbalization Framework</p>
+        </header>
+
+        <div class="intro-card">
+            <h2>What is Verbalization?</h2>
+            <p>Eugene Schwartz defined verbalization as the art of increasing the impact of a headline by the way it is stated. Once you determine the content of your headline (the basic appeal), verbalization shows you how to say it to maximize its force. This workbook helps you apply all 38 techniques to strengthen any headline you're working on.</p>
+        </div>
+
+        <!-- CATEGORY 1: INTENSIFYING THE CLAIM -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-number">01</div>
+                <h2 class="category-title">Intensifying the Claim</h2>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique-card" data-technique="1">
+                    <div class="technique-header">
+                        <span class="technique-num">#01</span>
+                        <h3 class="technique-name">Measure the Size of the Claim</h3>
+                    </div>
+                    <p class="technique-description">Use specific numbers to provide scale and make your claim tangible.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "20,000 filter traps in Viceroy"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="Try adding a specific number to quantify your benefit..."></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="2">
+                    <div class="technique-header">
+                        <span class="technique-num">#02</span>
+                        <h3 class="technique-name">Measure the Speed of the Claim</h3>
+                    </div>
+                    <p class="technique-description">Highlight how quickly the product works to create urgency and appeal.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Feel better fast" / "Results in 7 days"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="How fast does your product deliver results?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="3">
+                    <div class="technique-header">
+                        <span class="technique-num">#03</span>
+                        <h3 class="technique-name">Compare the Claim</h3>
+                    </div>
+                    <p class="technique-description">Use a comparative standard to show superiority over alternatives.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Six times whiter washes"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What can you compare your product to?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="4">
+                    <div class="technique-header">
+                        <span class="technique-num">#04</span>
+                        <h3 class="technique-name">Metaphorize the Claim</h3>
+                    </div>
+                    <p class="technique-description">Use strong verbs to create a vivid mental image of action.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Melt away ugly fat" / "Blast through barriers"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What powerful verb captures your benefit?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="5">
+                    <div class="technique-header">
+                        <span class="technique-num">#05</span>
+                        <h3 class="technique-name">Sensitize the Claim</h3>
+                    </div>
+                    <p class="technique-description">Make the prospect feel, smell, touch, see, or hear the benefit.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "The skin you love to touch"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="Which sense can you activate?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="6">
+                    <div class="technique-header">
+                        <span class="technique-num">#06</span>
+                        <h3 class="technique-name">Demonstrate with a Prime Example</h3>
+                    </div>
+                    <p class="technique-description">Show the product succeeding in a difficult or extreme situation.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> Fighter fails to flatten a paper cup (strength demonstration)
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What extreme test could your product pass?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="7">
+                    <div class="technique-header">
+                        <span class="technique-num">#07</span>
+                        <h3 class="technique-name">Dramatize the Claim or Result</h3>
+                    </div>
+                    <p class="technique-description">Use a narrative hook to show the dramatic outcome.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "They laughed when I sat down at the piano..."
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What's the dramatic before-and-after story?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 2: MODIFYING THE CLAIM'S LOGIC -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-number">02</div>
+                <h2 class="category-title">Modifying the Claim's Logic</h2>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique-card" data-technique="8">
+                    <div class="technique-header">
+                        <span class="technique-num">#08</span>
+                        <h3 class="technique-name">State as a Paradox</h3>
+                    </div>
+                    <p class="technique-description">Create intrigue through apparent contradiction.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "How a bald-headed barber saved my hair"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What contradiction makes your claim intriguing?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="9">
+                    <div class="technique-header">
+                        <span class="technique-num">#09</span>
+                        <h3 class="technique-name">Remove Limitations</h3>
+                    </div>
+                    <p class="technique-description">Promise a result without the usual drawbacks.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Shrinks hemorrhoids without surgery"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What painful step does your solution eliminate?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="10">
+                    <div class="technique-header">
+                        <span class="technique-num">#10</span>
+                        <h3 class="technique-name">Associate with Values or People</h3>
+                    </div>
+                    <p class="technique-description">Connect the product to figures the prospect admires.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Mickey Mantle says: Camels never bother my throat"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="Who does your audience admire or trust?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="11">
+                    <div class="technique-header">
+                        <span class="technique-num">#11</span>
+                        <h3 class="technique-name">Show Work Done in Detail</h3>
+                    </div>
+                    <p class="technique-description">List specific problems solved to demonstrate comprehensive value.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Relief from all 5 acid-caused stomach troubles"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="List the specific problems your product solves..."></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="12">
+                    <div class="technique-header">
+                        <span class="technique-num">#12</span>
+                        <h3 class="technique-name">State as a Question</h3>
+                    </div>
+                    <p class="technique-description">Engage the reader directly with a compelling question.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Who else wants a whiter wash—with no hard work?"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What question would make your reader say 'me!'?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="13">
+                    <div class="technique-header">
+                        <span class="technique-num">#13</span>
+                        <h3 class="technique-name">Offer Information About How</h3>
+                    </div>
+                    <p class="technique-description">Frame the headline as a guide or instructional promise.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "How to win friends and influence people"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="How to [achieve desired outcome]..."></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="14">
+                    <div class="technique-header">
+                        <span class="technique-num">#14</span>
+                        <h3 class="technique-name">Tie Authority Into the Claim</h3>
+                    </div>
+                    <p class="technique-description">Use an expert figure to back the promise.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Here's what doctors do when they feel rotten"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What authority figure validates your claim?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="15">
+                    <div class="technique-header">
+                        <span class="technique-num">#15</span>
+                        <h3 class="technique-name">Before-and-After the Claim</h3>
+                    </div>
+                    <p class="technique-description">Contrast the state before and after product use.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "From broke to $10k/month in 90 days"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What's the transformation your product creates?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 3: NEWNESS, EXCLUSIVITY & CHALLENGES -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-number">03</div>
+                <h2 class="category-title">Newness, Exclusivity & Challenges</h2>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique-card" data-technique="16">
+                    <div class="technique-header">
+                        <span class="technique-num">#16</span>
+                        <h3 class="technique-name">Stress the Newness</h3>
+                    </div>
+                    <p class="technique-description">Use words like "Announcing" or "Now" to signal a breakthrough.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Announcing: The first wrinkle cream that actually works"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What's new or breakthrough about your offer?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="17">
+                    <div class="technique-header">
+                        <span class="technique-num">#17</span>
+                        <h3 class="technique-name">Stress the Exclusivity</h3>
+                    </div>
+                    <p class="technique-description">Highlight what "only" your product can do.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Ours alone!" / "The only system that..."
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What can only your product deliver?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="18">
+                    <div class="technique-header">
+                        <span class="technique-num">#18</span>
+                        <h3 class="technique-name">Turn Into a Challenge</h3>
+                    </div>
+                    <p class="technique-description">Ask a question that forces the reader to compare.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Which twin has the Toni?"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What comparison challenge can you create?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="19">
+                    <div class="technique-header">
+                        <span class="technique-num">#19</span>
+                        <h3 class="technique-name">Case-History Quotation</h3>
+                    </div>
+                    <p class="technique-description">Use a "real" voice from an actual user or customer.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Look, Mom—no cavities!"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What would a satisfied customer say?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="20">
+                    <div class="technique-header">
+                        <span class="technique-num">#20</span>
+                        <h3 class="technique-name">Condense the Claim</h3>
+                    </div>
+                    <p class="technique-description">Interchange the product with the thing it replaces.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "A ring and piston job in a tube"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What does your product replace or compress?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="21">
+                    <div class="technique-header">
+                        <span class="technique-num">#21</span>
+                        <h3 class="technique-name">Symbolize the Claim</h3>
+                    </div>
+                    <p class="technique-description">Replace a direct measurement with a "parallel reality."</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Makes the Atlantic Ocean one-fifth as long"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What vivid metaphor captures your benefit?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 4: MECHANISM & INFORMATION -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-number">04</div>
+                <h2 class="category-title">Mechanism & Information</h2>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique-card" data-technique="22">
+                    <div class="technique-header">
+                        <span class="technique-num">#22</span>
+                        <h3 class="technique-name">Connect Mechanism to Claim</h3>
+                    </div>
+                    <p class="technique-description">Explain how the result happens in the headline.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Floats fat right out of your body"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="How does your product actually work?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="23">
+                    <div class="technique-header">
+                        <span class="technique-num">#23</span>
+                        <h3 class="technique-name">Contradict Standard Mechanics</h3>
+                    </div>
+                    <p class="technique-description">Give advice that seems wrong but is right.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Hit hell out of the ball with your right hand"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What counterintuitive truth does your method reveal?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="24">
+                    <div class="technique-header">
+                        <span class="technique-num">#24</span>
+                        <h3 class="technique-name">Connect Need and Claim</h3>
+                    </div>
+                    <p class="technique-description">Link the problem directly to the solution.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Tired? Try our energy formula"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What problem does your solution address?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="25">
+                    <div class="technique-header">
+                        <span class="technique-num">#25</span>
+                        <h3 class="technique-name">Offer Information in the Ad</h3>
+                    </div>
+                    <p class="technique-description">Sell the information in the copy, not just the product.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "What everybody ought to know about this stock and bond business"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What valuable information can you teach?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="26">
+                    <div class="technique-header">
+                        <span class="technique-num">#26</span>
+                        <h3 class="technique-name">Turn Into a Case History</h3>
+                    </div>
+                    <p class="technique-description">Use a story-like title to draw readers in.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Aunt Meg, who never married"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What story illustrates your benefit?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="27">
+                    <div class="technique-header">
+                        <span class="technique-num">#27</span>
+                        <h3 class="technique-name">Give a Name to the Problem</h3>
+                    </div>
+                    <p class="technique-description">Label a vague feeling to make it concrete.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Do you suffer from day-time fatigue?"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What name can you give the problem you solve?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="28">
+                    <div class="technique-header">
+                        <span class="technique-num">#28</span>
+                        <h3 class="technique-name">Warn About Pitfalls</h3>
+                    </div>
+                    <p class="technique-description">Use a cautionary tone to create protective urgency.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Don't invest one cent... until you check this guide"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What mistake should readers avoid?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY 5: PSYCHOLOGICAL FRAMING -->
+        <div class="category-section">
+            <div class="category-header">
+                <div class="category-number">05</div>
+                <h2 class="category-title">Psychological Framing</h2>
+            </div>
+            <div class="techniques-grid">
+                <div class="technique-card" data-technique="29">
+                    <div class="technique-header">
+                        <span class="technique-num">#29</span>
+                        <h3 class="technique-name">Emphasize by Phraseology</h3>
+                    </div>
+                    <p class="technique-description">Use repetition or unique sentence structure for impact.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Nobody but nobody undersells Gimbels"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What phrase structure creates memorable rhythm?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="30">
+                    <div class="technique-header">
+                        <span class="technique-num">#30</span>
+                        <h3 class="technique-name">Show Ease via Overcome Limitation</h3>
+                    </div>
+                    <p class="technique-description">Make it sound simple by setting a low bar.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "If you can count to eleven, you can increase your speed"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What simple ability proves anyone can do this?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="31">
+                    <div class="technique-header">
+                        <span class="technique-num">#31</span>
+                        <h3 class="technique-name">State the Difference</h3>
+                    </div>
+                    <p class="technique-description">Focus on the "additives" or unique differentiating factors.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "The only toothpaste with fluoride"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What's the unique ingredient or feature?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="32">
+                    <div class="technique-header">
+                        <span class="technique-num">#32</span>
+                        <h3 class="technique-name">Surprise with Overcome Limitations</h3>
+                    </div>
+                    <p class="technique-description">Show something surviving a test it usually fails.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> Suitcase not dented when crushed by a car
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What extreme test proves your durability?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="33">
+                    <div class="technique-header">
+                        <span class="technique-num">#33</span>
+                        <h3 class="technique-name">Address People Who Cannot Buy</h3>
+                    </div>
+                    <p class="technique-description">Use exclusion to entice the right market.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "If you've already taken your vacation, don't read this"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="Who should NOT read this?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="34">
+                    <div class="technique-header">
+                        <span class="technique-num">#34</span>
+                        <h3 class="technique-name">Address Your Prospect Directly</h3>
+                    </div>
+                    <p class="technique-description">Call out the specific target audience.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "To the man who will settle for nothing less than the Presidency"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="Who exactly is this for?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="35">
+                    <div class="technique-header">
+                        <span class="technique-num">#35</span>
+                        <h3 class="technique-name">Dramatize Production Difficulty</h3>
+                    </div>
+                    <p class="technique-description">Highlight the effort behind the breakthrough.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "It took 10 years to perfect this formula"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What effort went into creating this?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="36">
+                    <div class="technique-header">
+                        <span class="technique-num">#36</span>
+                        <h3 class="technique-name">Accuse of Being Too Good</h3>
+                    </div>
+                    <p class="technique-description">Use a provocative question to challenge skepticism.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Is it immoral to make money this easily?"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What makes your offer almost too good to believe?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="37">
+                    <div class="technique-header">
+                        <span class="technique-num">#37</span>
+                        <h3 class="technique-name">Challenge Limiting Beliefs</h3>
+                    </div>
+                    <p class="technique-description">Uplift the reader by showing their hidden potential.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "You are twice as smart as you think"
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What limiting belief can you shatter?"></textarea>
+                    </div>
+                </div>
+
+                <div class="technique-card" data-technique="38">
+                    <div class="technique-header">
+                        <span class="technique-num">#38</span>
+                        <h3 class="technique-name">Turn Into Question and Answer</h3>
+                    </div>
+                    <p class="technique-description">Identify when the product fails to work for someone.</p>
+                    <div class="technique-example">
+                        <strong>Example:</strong> "Does our system work for everyone? No—here's why..."
+                    </div>
+                    <div class="worksheet-area">
+                        <label class="worksheet-label">Your Headline:</label>
+                        <textarea class="input-field" placeholder="What question does your audience have?"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="floating-toolbar">
+        <div class="toolbar-stat">
+            <span class="toolbar-label">Completed</span>
+            <span class="toolbar-value" id="completedCount">0/38</span>
+        </div>
+        <div class="divider"></div>
+        <div class="toolbar-stat">
+            <span class="toolbar-label">Progress</span>
+            <span class="toolbar-value" id="progressPercent">0%</span>
+        </div>
+        <div class="divider"></div>
+        <button class="export-btn" onclick="exportWork()">Export</button>
+    </div>
+
+    <script>
+        // Track completion
+        const textareas = document.querySelectorAll('.input-field');
+        const progressFill = document.getElementById('progressFill');
+        const completedCount = document.getElementById('completedCount');
+        const progressPercent = document.getElementById('progressPercent');
+
+        function updateProgress() {
+            const total = textareas.length;
+            const filled = Array.from(textareas).filter(t => t.value.trim().length > 0).length;
+            const percentage = Math.round((filled / total) * 100);
+
+            completedCount.textContent = `${filled}/38`;
+            progressPercent.textContent = `${percentage}%`;
+            progressFill.style.width = `${percentage}%`;
+
+            // Save to localStorage
+            saveWork();
+        }
+
+        // Add event listeners
+        textareas.forEach(textarea => {
+            textarea.addEventListener('input', updateProgress);
+            textarea.addEventListener('blur', saveWork);
+        });
+
+        // Save work to localStorage
+        function saveWork() {
+            const data = {};
+            textareas.forEach((textarea, index) => {
+                data[`technique_${index}`] = textarea.value;
+            });
+            localStorage.setItem('headlineWorkbook', JSON.stringify(data));
+        }
+
+        // Load saved work
+        function loadWork() {
+            const saved = localStorage.getItem('headlineWorkbook');
+            if (saved) {
+                const data = JSON.parse(saved);
+                textareas.forEach((textarea, index) => {
+                    if (data[`technique_${index}`]) {
+                        textarea.value = data[`technique_${index}`];
+                    }
+                });
+                updateProgress();
+            }
+        }
+
+        // Export functionality
+        function exportWork() {
+            const cards = document.querySelectorAll('.technique-card');
+            let exportText = '# MY 38 HEADLINE TECHNIQUES WORKBOOK\n\n';
+            exportText += 'Generated from the Eugene Schwartz Verbalization Framework\n\n';
+            exportText += '---\n\n';
+
+            cards.forEach((card, index) => {
+                const num = card.querySelector('.technique-num').textContent;
+                const name = card.querySelector('.technique-name').textContent;
+                const description = card.querySelector('.technique-description').textContent;
+                const example = card.querySelector('.technique-example').textContent;
+                const input = card.querySelector('.input-field').value;
+
+                exportText += `## ${num} ${name}\n\n`;
+                exportText += `**Description:** ${description}\n\n`;
+                exportText += `**${example}**\n\n`;
+                
+                if (input.trim()) {
+                    exportText += `**My Headline:**\n${input}\n\n`;
+                } else {
+                    exportText += `**My Headline:** [Not yet written]\n\n`;
+                }
+                
+                exportText += '---\n\n';
+            });
+
+            // Create download
+            const blob = new Blob([exportText], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-headline-workbook.md';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Load on page load
+        window.addEventListener('load', loadWork);
+
+        // Stagger card animations
+        const cards = document.querySelectorAll('.technique-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 + (index * 30));
+        });
+    </script>
+</body>
+</html>
